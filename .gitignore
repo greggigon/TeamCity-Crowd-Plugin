@@ -4,3 +4,12 @@
 *.jar
 *.war
 *.ear
+
+.gradle/
+build/
+out/
+*.iml
+*.ipr
+*.iws
+teamcitydist/
+*.tar.gz
