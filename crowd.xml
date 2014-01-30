@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE auth-preset SYSTEM "auth-preset.dtd">
+
+<auth-preset name="Crowd Authentication Module">
+    <description>Crowd Authentication Module with Crowd Users and Groups sync</description>
+    <auth-modules>
+        <auth-module type="Crowd"/>
+        <auth-module type="Crowd-HTTP" />
+    </auth-modules>
+</auth-preset>

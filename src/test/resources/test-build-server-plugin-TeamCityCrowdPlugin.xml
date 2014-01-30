@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:lang="http://www.springframework.org/schema/lang" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/lang
+                           http://www.springframework.org/schema/lang/spring-lang-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="constructor">
+
+    <bean id="pluginConfiguration" class="teamcity.crowd.plugin.utils.CrowdPluginConfiguration" depends-on="configDir">
+        <constructor-arg value="src/test/resources"/>
+        <constructor-arg value="teamcity-crowd-plugin.properties"/>
+        <constructor-arg ref="clientProperties"/>
+        <constructor-arg ref="loggerFactory"/>
+    </bean>
+
+    <bean id="userGroupManager" class="teamcity.crowd.plugin.mocks.MockUserGroupManager" />
+    <bean id="userModel" class="teamcity.crowd.plugin.mocks.MockUserModel" />
+    <bean id="loginConfiguration" class="teamcity.crowd.plugin.mocks.MockLoginConfiguration" />
+
+    <bean id="loggerFactory" class="teamcity.crowd.plugin.mocks.MockLogger" />
+    <bean id="serverPaths" class="teamcity.crowd.plugin.mocks.MockServerPaths" />
+
+</beans>

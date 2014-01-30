@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:lang="http://www.springframework.org/schema/lang" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/lang
+                           http://www.springframework.org/schema/lang/spring-lang-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="constructor">
+
+    <import resource="classpath:applicationContext-CrowdRestClient.xml"/>
+
+    <bean id="loggerFactory" class="teamcity.crowd.plugin.utils.RealLoggerFactory"/>
+
+    <bean id="configDir" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="serverPaths"/>
+        <property name="targetMethod" value="getConfigDir"/>
+    </bean>
+
+    <bean id="pluginConfiguration" class="teamcity.crowd.plugin.utils.CrowdPluginConfiguration" depends-on="configDir">
+        <constructor-arg ref="configDir"/>
+        <constructor-arg value="teamcity-crowd-plugin.properties"/>
+        <constructor-arg ref="clientProperties"/>
+        <constructor-arg ref="loggerFactory"/>
+    </bean>
+
+    <bean id="crowdClientProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="pluginConfiguration"/>
+        <property name="targetMethod" value="getClientProperties"/>
+    </bean>
+
+    <bean id="myCrowdClientFactory" class="teamcity.crowd.plugin.TeamCityCrowdClientFactory">
+        <constructor-arg ref="crowdClientFactory" />
+        <constructor-arg ref="crowdClientProperties" />
+    </bean>
+
+    <bean id="crowdClient" factory-bean="myCrowdClientFactory" factory-method="newInstance"/>
+
+    <bean id="pluginCrowdClient" class="teamcity.crowd.plugin.RealPluginCrowdClient"/>
+
+    <bean id="crowdAuthenticationScheme" class="teamcity.crowd.plugin.CrowdPluginAuthenticationScheme"/>
+
+    <bean id="loggedInUserService" class="teamcity.crowd.plugin.loginmodule.LoggedInUserService" />
+
+    <bean id="crowdLoginModuleDescriptor" class="teamcity.crowd.plugin.loginmodule.CrowdPluginLoginModuleDescriptor"/>
+
+</beans>

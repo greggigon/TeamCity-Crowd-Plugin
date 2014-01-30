@@ -1,4 +1,7 @@
-TeamCitty-Crowd-Plugin
-======================
+TeamCity Crowd Plugin
+=================================
 
-A way to integrate Crowd as an Authentication and Authorization in TeamCity
+Introduction
+-------------
+
+TeamCity Crowd integration plugin is used by TeamCity for user authentication.
