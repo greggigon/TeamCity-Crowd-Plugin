@@ -2,7 +2,7 @@
 <!DOCTYPE auth-preset SYSTEM "auth-preset.dtd">
 
 <auth-preset name="Crowd Authentication Module">
-    <description>Crowd Authentication Module with Crowd Users and Groups sync</description>
+    <description>Crowd Authentication Module</description>
     <auth-modules>
         <auth-module type="Crowd"/>
         <auth-module type="Crowd-HTTP" />

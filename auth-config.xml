@@ -5,6 +5,6 @@
         <auth-module type="HTTP-Crowd"/>
     </auth-modules>
     <login-description />
-    <guest-login allowed="false" guest-username="guest" />
+    <guest-login allowed="true" guest-username="guest" />
 </auth-config>
 
