@@ -142,7 +142,7 @@ task copyPluginDependencies(type: Copy) {
 
 task buildPlugin(description: 'Prepares ZIP plugin file', type: Zip) {
     destinationDir = project.pluginDestinationDir
-    archiveName = "TeamCityCrowdIntegrationPlugin-${project.version}.zip"
+    archiveName = "teamcity-crowd-plugin-${project.version}.zip"
     from(project.pluginDir)
 }
 buildPlugin.dependsOn = [copyPluginFile, copyPluginJarFile, copyPluginDependencies]
