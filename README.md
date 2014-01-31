@@ -34,6 +34,11 @@ If you have a distribution of TeamCity deployed somewhere you might copy it to p
 
 You can also change the versions of TeamCity distribution and Crowd libraries in the __build.gradle__ file.
 
+
+### Versions
+
+The plugin was tested with `Teamcity 8.0.3` and `Atlassian Crowd 2.6.1, 2.6.3`. Build with `JDK 7 on Mac, Windows and Linux`.
+
 Installation
 ------------
 
