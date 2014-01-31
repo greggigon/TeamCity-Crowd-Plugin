@@ -14,7 +14,7 @@ There are two modes in which Plugin can work (configured via plugin configuratio
   - Plugin will only update membership of a user with groups that already exists in TeamCity. Previously created. This means that user will only be added to groups that already exist in TeamCity (default functionality)
   - Plugin will create missing groups and update user membership (set via configuration file, not default)
 
-!Note!
+##### Note
 Plugin uses different REALM to TeamCity. Once plugin activated the entire user base and groups prior to installation will be __NOT__ accessible.
 
 Building the plugin
@@ -27,7 +27,7 @@ Plugin uses Gradle to build the project.
 
 The build will run tests and prepare zip file in the __build/dist__ project folder.
 
-!Note!
+##### Note
 First time the plugin is build it will download a distribution of TeamCity, it might take a while (~300MB).
 
 If you have a distribution of TeamCity deployed somewhere you might copy it to project directory __teamcitydist/__ folder or modify __build.gradle__ file.
@@ -49,7 +49,7 @@ Sample configuration [auth-config.xml](https://raw2.github.com/greggigon/TeamCit
 For the plugin to work you need to create or copy Plugin Configuration file called __teamcity-crowd-plugin.properties__ and place it in the __TeamCityDataDir/config__. It has to be the exact name.
 Sample configuration file can be found [in this repository](https://raw2.github.com/greggigon/TeamCity-Crowd-Plugin/master/teamcity-crowd-plugin.properties).
 
-!Note!
+##### Note
 Plugin uses different REALM to TeamCity. The entire user base created prior to plugin activation will not be visible/usable.
 One plugin activated you can log into TeamCity with your Crowd credentials. To see the administration panel you will have to log in as SUPER USER into TeamCity with TOKEN from the teamcity-server.log file and make your user administrator (via checkbox on user page).
 
