@@ -1,7 +1,7 @@
 TeamCity Crowd Plugin
 =================================
 
-    Latest version of plugin is [0.1.0](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.1.0) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
+Latest version of plugin is [0.1.0](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.1.0) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
 
 Introduction
 -------------
