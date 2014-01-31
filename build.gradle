@@ -12,7 +12,6 @@ buildscript {
     }
 }
 
-project.group = 'org.gigoo'
 
 ext {
     teamCityVersion = '8.0.3'
@@ -105,7 +104,6 @@ task unpackTeamCityDistribution(type: Copy, dependsOn: downloadTeamCityDistribut
     from tarTree(resources.gzip("TeamCity-${project.teamCityVersion}.tar.gz"))
     into target
 }
-
 
 
 compileJava.dependsOn unpackTeamCityDistribution

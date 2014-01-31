@@ -1,9 +1,5 @@
 package teamcity.crowd.plugin.loginmodule;
 
-/**
- * Created by Grzegorz (Greg) Gigon
- * Date: 30/01/2014
- */
 public class GroupNameToGroupKey {
 
     public String transform(String groupName) {

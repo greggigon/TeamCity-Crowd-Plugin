@@ -2,10 +2,6 @@ package teamcity.crowd.plugin.loginmodule
 
 import org.junit.Test
 
-/**
- * Created by Grzegorz (Greg) Gigon
- * Date: 30/01/2014
- */
 class GroupNameToGroupKeyTest {
     private def groupToKey = new GroupNameToGroupKey()
 
