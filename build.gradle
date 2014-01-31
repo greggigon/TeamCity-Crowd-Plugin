@@ -1,16 +1,18 @@
-apply plugin: 'idea'
-apply plugin: 'groovy'
-apply plugin: 'download-task'
-
-
 buildscript {
     repositories {
         mavenCentral()
+        maven { url 'http://jcenter.bintray.com' }
     }
     dependencies {
         classpath 'de.undercouch:gradle-download-task:0.4'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.4'
     }
 }
+
+apply plugin: 'idea'
+apply plugin: 'groovy'
+apply plugin: 'download-task'
+apply plugin: 'bintray'
 
 
 ext {
@@ -84,6 +86,9 @@ jar {
     exclude 'build-server-plugin*.xml'
 }
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 task downloadTeamCityDistribution << {
     def destinationFile = file("TeamCity-${project.teamCityVersion}.tar.gz")
     download {
@@ -153,4 +158,5 @@ task prepareWrapper(type: Wrapper) {
 artifacts {
     plugin buildPlugin
 }
+
 
