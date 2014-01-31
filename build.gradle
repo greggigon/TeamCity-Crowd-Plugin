@@ -1,18 +1,15 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'http://jcenter.bintray.com' }
     }
     dependencies {
         classpath 'de.undercouch:gradle-download-task:0.4'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.4'
     }
 }
 
 apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'download-task'
-apply plugin: 'bintray'
 
 
 ext {
@@ -158,5 +155,3 @@ task prepareWrapper(type: Wrapper) {
 artifacts {
     plugin buildPlugin
 }
-
-
