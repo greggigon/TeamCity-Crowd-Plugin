@@ -4,6 +4,9 @@ import jetbrains.buildServer.users.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
+import java.util.ArrayList;
+
 public class MockUserModel implements UserModel {
     @Override
     public SUser createUserAccount(String s, String s2) throws DuplicateUserAccountException, MaxNumberOfUserAccountsReachedException, EmptyUsernameException {
@@ -14,6 +17,11 @@ public class MockUserModel implements UserModel {
     @Override
     public SUser findUserById(long l) {
         return null;
+    }
+    
+    @NotNull
+    public Collection<SUser> findUsersByIds(Collection<java.lang.Long> userIds) {
+        return new ArrayList<>();
     }
 
     @Nullable

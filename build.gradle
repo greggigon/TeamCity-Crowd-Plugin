@@ -13,7 +13,7 @@ apply plugin: 'download-task'
 
 
 ext {
-    teamCityVersion = '8.0.3'
+    teamCityVersion = '8.1.1'
     teamCityDistributionDir = "$projectDir/teamcitydist"
 
     if (project.hasProperty('teamCityDist')) {
@@ -43,7 +43,7 @@ configurations {
 }
 
 dependencies {
-    crowd 'com.atlassian.crowd:crowd-integration-client-rest:2.6.1'
+    crowd 'com.atlassian.crowd:crowd-integration-client-rest:2.6.2'
 
     compile files(
             "$project.teamCityDistributionDir/TeamCity/lib/servlet-api.jar",
