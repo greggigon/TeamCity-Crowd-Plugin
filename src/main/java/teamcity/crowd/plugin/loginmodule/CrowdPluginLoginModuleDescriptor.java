@@ -56,7 +56,7 @@ public class CrowdPluginLoginModuleDescriptor implements LoginModuleDescriptor {
 
     @Nullable
     @Override
-    public Collection<String> validate() {
+    public Collection<String> validate(Map<String, String> properties) {
         return new ArrayList<>();
     }
 
