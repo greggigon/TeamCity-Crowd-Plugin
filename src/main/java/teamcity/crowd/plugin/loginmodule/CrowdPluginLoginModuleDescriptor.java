@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CrowdPluginLoginModuleDescriptor implements LoginModuleDescriptorAdapter {
+public class CrowdPluginLoginModuleDescriptor implements LoginModuleDescriptor {
 
     private final PluginCrowdClient pluginCrowdClient;
     private final LoggedInUserService loggedInUserService;
@@ -56,7 +56,7 @@ public class CrowdPluginLoginModuleDescriptor implements LoginModuleDescriptorAd
 
     @Nullable
     @Override
-    public Collection<String> validate(Map<String, String> properties) {
+    public Collection<String> validate() {
         return new ArrayList<>();
     }
 

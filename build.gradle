@@ -22,7 +22,7 @@ ext {
 
     pluginDir = "$buildDir/plugin"
     pluginLibrariesDir = "$pluginDir/server"
-    pluginDestinationDir = new File("$project.buildDir/dist")
+    pluginDestinationDir = new File("${project.buildDir}/dist")
 }
 
 repositories {
@@ -43,7 +43,7 @@ configurations {
 }
 
 dependencies {
-    crowd 'com.atlassian.crowd:crowd-integration-client-rest:2.6.2'
+    crowd 'com.atlassian.crowd:crowd-integration-client-rest:2.6.5'
 
     compile files(
             "$project.teamCityDistributionDir/TeamCity/lib/servlet-api.jar",
@@ -149,7 +149,7 @@ buildPlugin.dependsOn = [copyPluginFile, copyPluginJarFile, copyPluginDependenci
 
 
 task prepareWrapper(type: Wrapper) {
-    gradleVersion = '1.9'
+    gradleVersion = '1.11'
 }
 
 artifacts {
