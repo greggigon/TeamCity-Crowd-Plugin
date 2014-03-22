@@ -1,7 +1,9 @@
 TeamCity Crowd Plugin
 =================================
 
-Latest version of plugin is [0.1.0](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.1.0) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
+Latest version of plugin is [0.2.0](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.2.0) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
+Build for TeamCity 8.1.1 and Crowd 2.6.5 .
+
 
 Introduction
 -------------
@@ -39,7 +41,7 @@ You can also change the versions of TeamCity distribution and Crowd libraries in
 
 ### Versions
 
-The plugin was tested with `Teamcity 8.0.3` and `Atlassian Crowd 2.6.1, 2.6.3`. Build with `JDK 7 on Mac, Windows and Linux`.
+The plugin was tested with `Teamcity 8.1.1` and `Atlassian Crowd 2.6.1, 2.6.3`. Build with `JDK 7 on Mac, Windows and Linux`.
 
 Installation
 ------------
