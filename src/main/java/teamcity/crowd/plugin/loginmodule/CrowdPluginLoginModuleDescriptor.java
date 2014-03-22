@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CrowdPluginLoginModuleDescriptor implements LoginModuleDescriptor {
+public class CrowdPluginLoginModuleDescriptor implements LoginModuleDescriptorAdapter {
 
     private final PluginCrowdClient pluginCrowdClient;
     private final LoggedInUserService loggedInUserService;
