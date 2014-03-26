@@ -1,33 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
     <title>Teamcity-crowd-plugin by greggigon</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Teamcity-crowd-plugin</h1>
+        <p class="header">A way to integrate Crowd as an Authentication and Authorization in TeamCity</p>
 
-    <header>
-      <div class="container">
-        <h1>Teamcity-crowd-plugin</h1>
-        <h2>A way to integrate Crowd as an Authentication and Authorization in TeamCity</h2>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/greggigon/TeamCity-Crowd-Plugin/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/greggigon/TeamCity-Crowd-Plugin/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/greggigon/TeamCity-Crowd-Plugin">View On GitHub</a></li>
+        </ul>
 
-        <section id="downloads">
-          <a href="https://github.com/greggigon/TeamCity-Crowd-Plugin/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/greggigon/TeamCity-Crowd-Plugin/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/greggigon/TeamCity-Crowd-Plugin" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/greggigon">greggigon</a></p>
 
-    <div class="container">
-      <section id="main_content">
+
+      </header>
+      <section>
         <h1>
 <a name="teamcity-crowd-plugin" class="anchor" href="#teamcity-crowd-plugin"><span class="octicon octicon-link"></span></a>TeamCity Crowd Plugin</h1>
 
@@ -39,7 +41,7 @@ Build for TeamCity 8.1.1 and Crowd 2.6.5 .</p>
 
 <p><a href="http://www.jetbrains.com/teamcity/">TeamCity</a> Crowd integration plugin is used by TeamCity for user authentication.</p>
 
-<p>[Plugin listed on Jetbrains page]<a href="http://confluence.jetbrains.com/display/TW/TeamCity+Plugins">http://confluence.jetbrains.com/display/TW/TeamCity+Plugins</a>.</p>
+<p><a href="http://confluence.jetbrains.com/display/TW/TeamCity+Plugins">Plugin listed on Jetbrains page</a>.</p>
 
 <p>The plugin replaces standard TeamCity Authentication mechanism by talking to <a href="https://www.atlassian.com/software/crowd/overview">Atlassian Crowd</a>.
 When user logs in with username and password, plugin validates credentials with Crowd. If the user "checks out" fine, the plugin creates user in TeamCity if the user doesn't exists.</p>
@@ -139,8 +141,21 @@ It is switched off by default as the Group creation involves generation of the G
 
 <p>Creating Groups manually gives more control over Project Permissions, etc.</p>
       </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
     </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-49403216-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
 
-    
   </body>
 </html>
