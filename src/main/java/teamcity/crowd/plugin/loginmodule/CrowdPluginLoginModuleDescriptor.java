@@ -54,12 +54,6 @@ public class CrowdPluginLoginModuleDescriptor implements LoginModuleDescriptor {
         return "Login with your Crowd Credentials.";
     }
 
-    @Nullable
-    @Override
-    public Collection<String> validate() {
-        return new ArrayList<>();
-    }
-
     @NotNull
     @Override
     public String getName() {
@@ -99,5 +93,11 @@ public class CrowdPluginLoginModuleDescriptor implements LoginModuleDescriptor {
     @Override
     public String describeProperties(@NotNull Map<String, String> stringStringMap) {
         return null;
+    }
+
+    @Nullable
+    @Override
+    public Collection<String> validate(@NotNull Map<String, String> stringStringMap) {
+        return new ArrayList<>();
     }
 }
