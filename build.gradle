@@ -94,21 +94,35 @@ task downloadTeamCityDistribution << {
         dest destinationFile
     }
 }
-downloadTeamCityDistribution.onlyIf { 
+downloadTeamCityDistribution.onlyIf {
     def destinationFile = file("TeamCity-${project.teamCityVersion}.tar.gz")
-    !destinationFile.exists() 
+    !destinationFile.exists()
 }
 
-task unpackTeamCityDistribution(type: Copy, dependsOn: downloadTeamCityDistribution) {
+task deletePreviousVersion(type: Delete, dependsOn: downloadTeamCityDistribution) {
+    def versionFile = new File(teamCityDistributionDir, "current.version")
+    onlyIf { !versionFile.exists() || !versionFile.text.contains(teamCityVersion) }
+
+    delete teamCityDistributionDir
+}
+
+task unpackTeamCityDistribution(type: Copy, dependsOn: deletePreviousVersion) {
     def target = file(project.teamCityDistributionDir)
+
     onlyIf { !target.exists() }
 
     from tarTree(resources.gzip("TeamCity-${project.teamCityVersion}.tar.gz"))
     into target
 }
 
+task createVersionFile(dependsOn: unpackTeamCityDistribution) << {
+    def versionFile = new File(teamCityDistributionDir, "current.version")
+    versionFile.text = teamCityVersion
+}
+createVersionFile.onlyIf { !new File(teamCityDistributionDir, "current.version").exists()}
 
-compileJava.dependsOn unpackTeamCityDistribution
+
+compileJava.dependsOn createVersionFile
 
 task copyPluginFile(type: Copy) {
     from(projectDir) {
