@@ -10,7 +10,7 @@ Introduction
 
 [TeamCity](http://www.jetbrains.com/teamcity/) Crowd integration plugin is used by TeamCity for user authentication.
 
-[Plugin listed on Jetbrains page]http://confluence.jetbrains.com/display/TW/TeamCity+Plugins.
+[Plugin listed on Jetbrains page](http://confluence.jetbrains.com/display/TW/TeamCity+Plugins).
 
 The plugin replaces standard TeamCity Authentication mechanism by talking to [Atlassian Crowd](https://www.atlassian.com/software/crowd/overview).
 When user logs in with username and password, plugin validates credentials with Crowd. If the user "checks out" fine, the plugin creates user in TeamCity if the user doesn't exists.
