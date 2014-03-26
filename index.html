@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Teamcity-crowd-plugin by greggigon</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Teamcity-crowd-plugin</h1>
+        <h2>A way to integrate Crowd as an Authentication and Authorization in TeamCity</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/greggigon/TeamCity-Crowd-Plugin/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/greggigon/TeamCity-Crowd-Plugin/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/greggigon/TeamCity-Crowd-Plugin" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="teamcity-crowd-plugin" class="anchor" href="#teamcity-crowd-plugin"><span class="octicon octicon-link"></span></a>TeamCity Crowd Plugin</h1>
+
+<p>Latest version of plugin is <a href="https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.2.1">0.2.1</a> and available on <a href="https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/">BinTray</a>.
+Build for TeamCity 8.1.1 and Crowd 2.6.5 .</p>
+
+<h2>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p><a href="http://www.jetbrains.com/teamcity/">TeamCity</a> Crowd integration plugin is used by TeamCity for user authentication.</p>
+
+<p>[Plugin listed on Jetbrains page]<a href="http://confluence.jetbrains.com/display/TW/TeamCity+Plugins">http://confluence.jetbrains.com/display/TW/TeamCity+Plugins</a>.</p>
+
+<p>The plugin replaces standard TeamCity Authentication mechanism by talking to <a href="https://www.atlassian.com/software/crowd/overview">Atlassian Crowd</a>.
+When user logs in with username and password, plugin validates credentials with Crowd. If the user "checks out" fine, the plugin creates user in TeamCity if the user doesn't exists.</p>
+
+<p>Once the user is created Plugin will update user's group membership.
+There are two modes in which Plugin can work (configured via plugin configuration file):</p>
+
+<ul>
+<li>Plugin will only update membership of a user with groups that already exists in TeamCity. Previously created. This means that user will only be added to groups that already exist in TeamCity (default functionality)</li>
+<li>Plugin will create missing groups and update user membership (set via configuration file, not default)</li>
+</ul><h5>
+<a name="note" class="anchor" href="#note"><span class="octicon octicon-link"></span></a>Note</h5>
+
+<p>Plugin uses different REALM to TeamCity. Once plugin activated the entire user base and groups prior to installation will be <strong>NOT</strong> accessible.</p>
+
+<h2>
+<a name="building-the-plugin" class="anchor" href="#building-the-plugin"><span class="octicon octicon-link"></span></a>Building the plugin</h2>
+
+<p>To build the plugin you need Java installed on your machine and access to the Internet.
+Plugin uses Gradle to build the project.</p>
+
+<pre><code>gradlew buildPlugin
+</code></pre>
+
+<p>The build will run tests and prepare zip file in the <strong>build/dist</strong> project folder.</p>
+
+<h5>
+<a name="note-1" class="anchor" href="#note-1"><span class="octicon octicon-link"></span></a>Note</h5>
+
+<p>First time the plugin is build it will download a distribution of TeamCity, it might take a while (~300MB).</p>
+
+<p>If you have a distribution of TeamCity deployed somewhere you might copy it to project directory <strong>teamcitydist/</strong> folder or modify <strong>build.gradle</strong> file.</p>
+
+<p>You can also change the versions of TeamCity distribution and Crowd libraries in the <strong>build.gradle</strong> file.</p>
+
+<h3>
+<a name="versions" class="anchor" href="#versions"><span class="octicon octicon-link"></span></a>Versions</h3>
+
+<p>The plugin was tested with <code>Teamcity 8.1.1</code> and <code>Atlassian Crowd 2.6.1, 2.6.3</code>. Build with <code>JDK 7 on Mac, Windows and Linux</code>.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>To install TeamCity Crowd plugin you need to copy the plugin distribution file (build/dist/teamcity-crowd-plugin-(version).zip) into <strong>TeamCityDataDir/plugins</strong> folder.
+<strong>TeamCityDataDir</strong> is the server data folder. By default it is in the <strong>User Home/.Buildserver</strong>. More info at <a href="http://confluence.jetbrains.com/display/TCD8/TeamCity+Data+Directory">JetBrains TeamCity WIKI</a>.</p>
+
+<p>You can also copy presets file <strong>crowd.xml</strong> from <a href="https://raw2.github.com/greggigon/TeamCity-Crowd-Plugin/master/crowd.xml">this repository</a> and place it in the <strong>TeamCityDataDir/config/_auth</strong> folder.
+It is Authentication preset file that will make Crowd Authentication selectable from the Administrator view in TeamCity.</p>
+
+<p>If you don't copy the file you need to manually modify <strong>auth-config.xml</strong> in  <strong>TeamCityDataDir/config</strong>  folder.
+Sample configuration <a href="https://raw2.github.com/greggigon/TeamCity-Crowd-Plugin/master/auth-config.xml">auth-config.xml</a> can be found in this repository.</p>
+
+<p>For the plugin to work you need to create or copy Plugin Configuration file called <strong>teamcity-crowd-plugin.properties</strong> and place it in the <strong>TeamCityDataDir/config</strong>. It has to be the exact name.
+Sample configuration file can be found <a href="https://raw2.github.com/greggigon/TeamCity-Crowd-Plugin/master/teamcity-crowd-plugin.properties">in this repository</a>.</p>
+
+<h5>
+<a name="note-2" class="anchor" href="#note-2"><span class="octicon octicon-link"></span></a>Note</h5>
+
+<p>Plugin uses different REALM to TeamCity. The entire user base created prior to plugin activation will not be visible/usable.
+One plugin activated you can log into TeamCity with your Crowd credentials. To see the administration panel you will have to log in as SUPER USER into TeamCity with TOKEN from the teamcity-server.log file and make your user administrator (via checkbox on user page).</p>
+
+<p><strong>Remember to restart TeamCity for plugin to work.</strong></p>
+
+<h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>If you have the presets file copied to TeamCity configuration folder, you can select the Authentication mechanism in the Administration -&gt; Authentication panel of TeamCity.
+You can manually enable the plugin by modifying <strong>auth-config.xml</strong> file.</p>
+
+<p>You also need to configure Crowd Server details in the <strong>teamcity-crowd-plugin.properties</strong> file. Example configuration:</p>
+
+<pre><code>    application.name=teamcity
+    application.password=password
+    application.login.url=http://localhost:8111/login.html
+
+    crowd.base.url=http://localhost:8095/crowd
+
+    session.isauthenticated=session.isauthenticated
+    session.tokenkey=whateva
+    session.validationinterval=0
+    session.lastvalidation=session.lastvalidation
+</code></pre>
+
+<p>!Note!
+Make sure to add Application to the Crowd server with appropriate name and password.</p>
+
+<h4>
+<a name="extra-config-parameter-for-group-creation" class="anchor" href="#extra-config-parameter-for-group-creation"><span class="octicon octicon-link"></span></a>Extra config parameter for group creation</h4>
+
+<p>There is one additional property that you can setup in the <strong>teamcity-crowd-plugin.properties</strong> file.</p>
+
+<pre><code>    tc.crowd.plugin.createGroups=true # default false
+</code></pre>
+
+<p>If you set this up the Plugin will create Groups in TeamCity when user logs in and Group is not there.
+It is switched off by default as the Group creation involves generation of the Group Key. Group Key in TeamCity is limited to 16 characters and it might fail the creation anyway if the key is duplicated.</p>
+
+<p>Creating Groups manually gives more control over Project Permissions, etc.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
