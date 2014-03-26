@@ -1,7 +1,7 @@
 TeamCity Crowd Plugin
 =================================
 
-Latest version of plugin is [0.2.0](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.2.0) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
+Latest version of plugin is [0.2.1](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.2.1) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
 Build for TeamCity 8.1.1 and Crowd 2.6.5 .
 
 
@@ -9,6 +9,8 @@ Introduction
 -------------
 
 [TeamCity](http://www.jetbrains.com/teamcity/) Crowd integration plugin is used by TeamCity for user authentication.
+
+[Plugin listed on Jetbrains page]http://confluence.jetbrains.com/display/TW/TeamCity+Plugins.
 
 The plugin replaces standard TeamCity Authentication mechanism by talking to [Atlassian Crowd](https://www.atlassian.com/software/crowd/overview).
 When user logs in with username and password, plugin validates credentials with Crowd. If the user "checks out" fine, the plugin creates user in TeamCity if the user doesn't exists.
