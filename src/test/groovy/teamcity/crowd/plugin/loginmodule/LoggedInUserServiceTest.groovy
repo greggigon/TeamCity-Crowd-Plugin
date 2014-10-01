@@ -54,6 +54,64 @@ class LoggedInUserServiceTest {
     }
 
     @Test
+    void 'should Create Groups with unique key adding a group with by default would match an existing key'() {
+        def groupManager = mock(UserGroupManager)
+        def pluginCrowdClient = mock(PluginCrowdClient)
+        def userModel = mock(UserModel)
+        def teamCityUser = mock(SUser)
+        def configuration = mock(CrowdPluginConfiguration)
+        def createdGroup = mock(SUserGroup)
+        def createdOtherGroup = mock(SUserGroup)
+
+        def gregsGroup = new GroupEntity('1234567890abcdef', '', GroupType.GROUP, true)
+        def gregsOtherGroup = new GroupEntity('1234567890abcdef_Another', '', GroupType.GROUP, true)
+
+
+        when(configuration.shouldCreateGroups()).thenReturn(true)
+        when(teamCityUser.getAssociatedUser()).thenReturn([getName:{'gregster'}, getEmail: {'gregster@greggigon.com'}] as jetbrains.buildServer.users.User)
+        when(teamCityUser.getUsername()).thenReturn('gregster')
+        when(userModel.findUserAccount(CrowdPluginAuthenticationScheme.REALM, user.getName())).thenReturn(teamCityUser)
+
+        when(pluginCrowdClient.getUserGroups('gregster')).thenReturn([gregsGroup, gregsOtherGroup] as List<Group>)
+        when(groupManager.createUserGroup('1234567890ABCDEF', '1234567890abcdef', 'Created by Crowd Plugin')).thenReturn(createdGroup)
+        when(groupManager.createUserGroup('1234567890ABC000', '1234567890abcdef_Another', 'Created by Crowd Plugin')).thenReturn(createdOtherGroup)
+        when(groupManager.findUserGroupByKey('1234567890ABCDEF')).thenReturn(null).thenReturn(createdGroup)
+
+        def loggedInUserService = new LoggedInUserService(groupManager, pluginCrowdClient, userModel, provider, configuration)
+        loggedInUserService.updateMembership(user)
+
+        verify(groupManager).createUserGroup('1234567890ABCDEF', '1234567890abcdef', 'Created by Crowd Plugin')
+        verify(groupManager).createUserGroup('1234567890ABC000', '1234567890abcdef_Another', 'Created by Crowd Plugin')
+    }
+
+    @Test
+    void 'will not create group when there are 1000 groups with the same 13 char prefix'() {
+        def groupManager = mock(UserGroupManager)
+        def pluginCrowdClient = mock(PluginCrowdClient)
+        def userModel = mock(UserModel)
+        def teamCityUser = mock(SUser)
+        def configuration = mock(CrowdPluginConfiguration)
+        def createdGroup = mock(SUserGroup)
+
+        def gregsGroup = new GroupEntity('1234567890ABCDEFX', '', GroupType.GROUP, true)
+
+
+        when(configuration.shouldCreateGroups()).thenReturn(true)
+        when(teamCityUser.getAssociatedUser()).thenReturn([getName:{'gregster'}, getEmail: {'gregster@greggigon.com'}] as jetbrains.buildServer.users.User)
+        when(teamCityUser.getUsername()).thenReturn('gregster')
+        when(userModel.findUserAccount(CrowdPluginAuthenticationScheme.REALM, user.getName())).thenReturn(teamCityUser)
+
+        when(pluginCrowdClient.getUserGroups('gregster')).thenReturn([gregsGroup] as List<Group>)
+        when(groupManager.findUserGroupByKey('1234567890ABCDEF')).thenReturn(mock(SUserGroup))
+        for (int i = 0; i < 1000; i++) {
+            when(groupManager.findUserGroupByKey('1234567890ABC' + String.format("%03d", i))).thenReturn(mock(SUserGroup))
+        }
+
+        def loggedInUserService = new LoggedInUserService(groupManager, pluginCrowdClient, userModel, provider, configuration)
+        loggedInUserService.updateMembership(user)
+    }
+
+    @Test
     void 'should NOT update user details on successful login if details are the same'() {
         def groupManager = mock(UserGroupManager)
         def pluginCrowdClient = mock(PluginCrowdClient)
