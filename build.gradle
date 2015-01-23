@@ -13,7 +13,7 @@ apply plugin: 'download-task'
 
 
 ext {
-    teamCityVersion = '8.1.1'
+    teamCityVersion = '9.0.1'
     teamCityDistributionDir = "$projectDir/teamcitydist"
 
     if (project.hasProperty('teamCityDist')) {
@@ -111,7 +111,7 @@ task unpackTeamCityDistribution(type: Copy, dependsOn: deletePreviousVersion) {
 
     onlyIf { !target.exists() }
 
-    from tarTree(resources.gzip("TeamCity-${project.teamCityVersion}.tar.gz"))
+    from tarTree("TeamCity-${project.teamCityVersion}.tar.gz")
     into target
 }
 

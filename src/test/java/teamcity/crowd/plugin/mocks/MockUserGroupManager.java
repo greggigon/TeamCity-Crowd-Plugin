@@ -1,12 +1,14 @@
 package teamcity.crowd.plugin.mocks;
 
 import jetbrains.buildServer.groups.*;
+import jetbrains.buildServer.users.PropertyKey;
 import jetbrains.buildServer.users.User;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class MockUserGroupManager implements UserGroupManager {
     @NotNull
@@ -58,6 +60,12 @@ public class MockUserGroupManager implements UserGroupManager {
     @Nullable
     @Override
     public SUserGroup findUserGroupByName(@NotNull String s) {
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public Set<SUserGroup> findUserGroupsByPropertyValue(@NotNull PropertyKey propertyKey, @Nullable String s, boolean b) {
         return null;
     }
 
