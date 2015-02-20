@@ -4,6 +4,9 @@ TeamCity Crowd Plugin
 Latest version of plugin is [0.3.0](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.3.0) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
 Build for TeamCity 9.0.2 and Crowd 2.6.7 .
 
+        PLEASE NOTE IT IS RECOMMENDED TO BUILD THE PLUGIN FOR A SPECIFIC VERSION OF TEAMCITY AND CROWD.
+        
+Plugin should be compatible within a major releases, however I can't guarantee this as I can't test all different combinations.
 
 Introduction
 -------------
