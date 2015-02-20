@@ -48,7 +48,7 @@ You can also change the versions of TeamCity distribution and Crowd libraries in
 
 ### Versions
 
-The plugin was tested with `Teamcity 8.1.1` and `Atlassian Crowd 2.6.1, 2.6.3`. Build with `JDK 7 on Mac, Windows and Linux`.
+The plugin was tested with `Teamcity 9.0.2` and `Atlassian Crowd 2.6.1, 2.6.3 and 2.6.7`. Build with `JDK 8 on Mac, Windows and Linux`.
 
 Installation
 ------------
