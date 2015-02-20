@@ -2,15 +2,13 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath 'de.undercouch:gradle-download-task:1.0'
-    }
 }
 
-apply plugin: 'idea'
-apply plugin: 'groovy'
-apply plugin: 'download-task'
-
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'idea'
+}
 
 ext {
     teamCityVersion = '9.0.1'
@@ -87,11 +85,10 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 task downloadTeamCityDistribution << {
-    def destinationFile = file("TeamCity-${project.teamCityVersion}.tar.gz")
-    download {
-        src "http://download.jetbrains.com/teamcity/TeamCity-${project.teamCityVersion}.tar.gz"
-
-        dest destinationFile
+    def f = new File("TeamCity-${project.teamCityVersion}.tar.gz")
+    def teamcityUrl = "http://download-cf.jetbrains.com/teamcity/TeamCity-${project.teamCityVersion}.tar.gz"
+    if (!f.exists()) {
+        new URL(teamcityUrl).withInputStream { i -> f.withOutputStream{ it << i }}
     }
 }
 downloadTeamCityDistribution.onlyIf {
