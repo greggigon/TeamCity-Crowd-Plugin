@@ -5,6 +5,7 @@ import com.atlassian.crowd.model.user.User;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.intellij.openapi.diagnostic.Logger;
@@ -31,6 +32,7 @@ public class LoggedInUserService {
     private final UserModel userModel;
     private final LoggerFactory loggerFactory;
     private boolean shouldCreateGroups = false;
+    private boolean doNotRemoveInternalGroups = false;
 
 
     public static final String ALL_USERS_GROUP = "All Users";
@@ -48,6 +50,7 @@ public class LoggedInUserService {
         this.userModel = userModel;
         this.loggerFactory = loggerFactory;
         this.shouldCreateGroups = crowdPluginConfiguration.shouldCreateGroups();
+        this.doNotRemoveInternalGroups = crowdPluginConfiguration.doNotRemoveInternalGroups();
     }
 
     public ServerPrincipal updateMembership(User user) {
@@ -79,7 +82,9 @@ public class LoggedInUserService {
         final List<String> userGroupsInCrowd = userGroupsInCrowd(teamCityUser);
         final List<String> allTeamCityGroupsUserIsAMemberOfAlready = allTeamCityUserGroups(teamCityUser);
         final List<String> listOfGropusUserShouldBeRemovedFrom =
-                groupsToBeRemovedFrom(allTeamCityGroupsUserIsAMemberOfAlready, userGroupsInCrowd);
+                groupsToBeRemovedFrom(
+                        doNotRemoveInternalGroups ? allTeamCityNonInternalUserGroups(teamCityUser) : allTeamCityGroupsUserIsAMemberOfAlready,
+                        userGroupsInCrowd);
 
         for (String userGroup : userGroupsInCrowd) {
             if (!allTeamCityGroupsUserIsAMemberOfAlready.contains(userGroup)) {
@@ -137,6 +142,27 @@ public class LoggedInUserService {
                 return input.getName();
             }
         }));
+    }
+
+    private List<String> allTeamCityNonInternalUserGroups(SUser teamCityUser) {
+        return Lists.newArrayList(
+                Collections2.filter(
+                        Collections2.transform(
+                                teamCityUser.getUserGroups(),
+                                new Function<UserGroup, String>() {
+                                    @Override
+                                    public String apply(@Nullable UserGroup input) {
+                                        if (input.getDescription().equals(CREATED_BY_PLUGIN_MESSAGE))
+                                            return input.getName();
+                                        else
+                                            return null;
+                                    }
+                                }), new Predicate<String>() {
+                            @Override
+                            public boolean apply(final String input) {
+                                return !Strings.isNullOrEmpty(input);
+                            }
+                        }));
     }
 
     private SUser createUserAccount(User user) {
