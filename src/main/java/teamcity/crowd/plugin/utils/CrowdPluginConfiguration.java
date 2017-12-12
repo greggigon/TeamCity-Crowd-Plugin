@@ -10,12 +10,14 @@ import java.util.Properties;
 
 public class CrowdPluginConfiguration {
     public static final String SHOULD_CREATE_GROUPS = "tc.crowd.plugin.createGroups";
+    public static final String DO_NOT_REMOVE_INTERNAL_GROUPS = "tc.crowd.plugin.doNotRemoveIntGroups";
 
     private LoggerFactory loggerFactory;
     private String configDir;
     private String configurationFileName;
     private ClientProperties clientProperties;
     private boolean shouldCreateGroups = false;
+    private boolean doNotRemoveInternalGroups = false;
 
     public CrowdPluginConfiguration(String configDir, String configurationFileName, ClientProperties clientProperties, LoggerFactory loggerFactory) {
         this.configDir = configDir;
@@ -38,6 +40,7 @@ public class CrowdPluginConfiguration {
             reader = new FileReader(configurationFile);
             teamCityPluginProperties.load(reader);
             shouldCreateGroups = Boolean.parseBoolean(teamCityPluginProperties.getProperty(SHOULD_CREATE_GROUPS, "false"));
+            doNotRemoveInternalGroups = Boolean.parseBoolean(teamCityPluginProperties.getProperty(DO_NOT_REMOVE_INTERNAL_GROUPS, "false"));
 
             clientProperties.updateProperties(teamCityPluginProperties);
         } catch (IOException e) {
@@ -56,5 +59,9 @@ public class CrowdPluginConfiguration {
 
     public boolean shouldCreateGroups() {
         return shouldCreateGroups;
+    }
+
+    public boolean doNotRemoveInternalGroups() {
+        return doNotRemoveInternalGroups;
     }
 }

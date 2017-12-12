@@ -2,18 +2,17 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath 'de.undercouch:gradle-download-task:1.0'
-    }
 }
 
-apply plugin: 'idea'
-apply plugin: 'groovy'
-apply plugin: 'download-task'
-
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'idea'
+}
 
 ext {
-    teamCityVersion = '9.0.1'
+    teamCityVersion = '9.1.6'
+    crowdVersion = '2.8.3'
     teamCityDistributionDir = "$projectDir/teamcitydist"
 
     if (project.hasProperty('teamCityDist')) {
@@ -43,7 +42,7 @@ configurations {
 }
 
 dependencies {
-    crowd 'com.atlassian.crowd:crowd-integration-client-rest:2.6.5'
+    crowd "com.atlassian.crowd:crowd-integration-client-rest:$crowdVersion"
 
     compile files(
             "$project.teamCityDistributionDir/TeamCity/lib/servlet-api.jar",
@@ -63,6 +62,7 @@ dependencies {
 
     testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-all:1.9.5'
+    testCompile 'commons-logging:commons-logging:1.2'
     testRuntime "com.cyrusinnovation:mockito-groovy-support:1.2"
 
     testCompile 'org.springframework:spring-test:3.0.7.RELEASE'
@@ -87,11 +87,10 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 task downloadTeamCityDistribution << {
-    def destinationFile = file("TeamCity-${project.teamCityVersion}.tar.gz")
-    download {
-        src "http://download.jetbrains.com/teamcity/TeamCity-${project.teamCityVersion}.tar.gz"
-
-        dest destinationFile
+    def f = new File("TeamCity-${project.teamCityVersion}.tar.gz")
+    def teamcityUrl = "http://download-cf.jetbrains.com/teamcity/TeamCity-${project.teamCityVersion}.tar.gz"
+    if (!f.exists()) {
+        new URL(teamcityUrl).withInputStream { i -> f.withOutputStream{ it << i }}
     }
 }
 downloadTeamCityDistribution.onlyIf {
@@ -163,7 +162,7 @@ buildPlugin.dependsOn = [copyPluginFile, copyPluginJarFile, copyPluginDependenci
 
 
 task prepareWrapper(type: Wrapper) {
-    gradleVersion = '1.11'
+    gradleVersion = '2.2.1'
 }
 
 artifacts {

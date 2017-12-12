@@ -1,9 +1,12 @@
 TeamCity Crowd Plugin
 =================================
 
-Latest version of plugin is [0.2.1](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.2.1) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
-Build for TeamCity 8.1.1 and Crowd 2.6.5 .
+Latest version of plugin is [0.3.0](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.3.0) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
+Build for TeamCity 9.0.2 and Crowd 2.6.7 .
 
+        PLEASE NOTE IT IS RECOMMENDED TO BUILD THE PLUGIN FOR A SPECIFIC VERSION OF TEAMCITY AND CROWD.
+        
+Plugin should be compatible within a major releases, however I can't guarantee this as I can't test all different combinations.
 
 Introduction
 -------------
@@ -33,8 +36,10 @@ Plugin uses Gradle to build the project.
 
 The build will run tests and prepare zip file in the __build/dist__ project folder.
 
+You can modify a specific versions of TeamCity and Crowd you are building for, in the __build.gradle__ file (see __teamCityVersion__ and __crowdVersion__ in the __ext__ section).
+
 ##### Note
-First time the plugin is build it will download a distribution of TeamCity, it might take a while (~300MB).
+First time the plugin is build it will download a distribution of TeamCity, it might take a while (~500MB).
 
 If you have a distribution of TeamCity deployed somewhere you might copy it to project directory __teamcitydist/__ folder or modify __build.gradle__ file.
 
@@ -43,7 +48,7 @@ You can also change the versions of TeamCity distribution and Crowd libraries in
 
 ### Versions
 
-The plugin was tested with `Teamcity 8.1.1` and `Atlassian Crowd 2.6.1, 2.6.3`. Build with `JDK 7 on Mac, Windows and Linux`.
+The plugin was tested with `Teamcity 9.0.2` and `Atlassian Crowd 2.6.1, 2.6.3 and 2.6.7`. Build with `JDK 8 on Mac, Windows and Linux`.
 
 Installation
 ------------
