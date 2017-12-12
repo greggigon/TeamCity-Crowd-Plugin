@@ -16,3 +16,4 @@ teamcitydist/
 *.tar.gz
 
 .idea
+.DS_Store
