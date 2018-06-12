@@ -1,5 +1,6 @@
 src_old/
 *.class
+teamcity-crowd-plugin-server/target/
 
 # Package Files #
 *.jar
