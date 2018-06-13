@@ -14,10 +14,10 @@ class CrowdPluginConfiguration(configDirectory: String, configFileName: String, 
     val doNotRemoveInternalGroups: Boolean
 
     companion object {
-        val SHOULD_CREATE_GROUPS = "tc.crowd.plugin.createGroups"
-        val DO_NOT_REMOVE_INTERNAL_GROUPS = "tc.crowd.plugin.doNotRemoveIntGroups"
+        const val SHOULD_CREATE_GROUPS = "tc.crowd.plugin.createGroups"
+        const val DO_NOT_REMOVE_INTERNAL_GROUPS = "tc.crowd.plugin.doNotRemoveIntGroups"
 
-        val CONFIG_ERROR_MESSAGE = "Can't initialize the configuration properties for TeamCity Crowd Plugin. " +
+        const val CONFIG_ERROR_MESSAGE = "Can't initialize the configuration properties for TeamCity Crowd Plugin. " +
                 "Make sure configuration file teamcity-crowd-plugin.properties is in the TeamCity Data Folder/config"
     }
 
@@ -31,13 +31,14 @@ class CrowdPluginConfiguration(configDirectory: String, configFileName: String, 
         }
 
         val pluginProperties = Properties()
-        val reader = FileReader(configFileName)
+        val reader = FileReader(configurationFile)
         pluginProperties.load(reader)
 
-        shouldCreateGroups = pluginProperties.getProperty(SHOULD_CREATE_GROUPS, "false") as Boolean
-        doNotRemoveInternalGroups = pluginProperties.getProperty(DO_NOT_REMOVE_INTERNAL_GROUPS, "false") as Boolean
-    }
+        clientProperties.updateProperties(pluginProperties)
 
+        shouldCreateGroups = pluginProperties.getProperty(SHOULD_CREATE_GROUPS, "false").toBoolean()
+        doNotRemoveInternalGroups = pluginProperties.getProperty(DO_NOT_REMOVE_INTERNAL_GROUPS, "false").toBoolean()
+    }
 
 
 }
