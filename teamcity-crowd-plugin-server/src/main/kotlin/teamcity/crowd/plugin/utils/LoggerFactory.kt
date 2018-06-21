@@ -1,4 +1,4 @@
-package teamcity.crowd.plugin.config
+package teamcity.crowd.plugin.utils
 
 import com.intellij.openapi.diagnostic.Logger
 import jetbrains.buildServer.log.Loggers

@@ -9,6 +9,7 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import teamcity.crowd.plugin.utils.LoggerFactory
 
 class CrowdPluginConfigurationTest {
 
@@ -29,7 +30,7 @@ class CrowdPluginConfigurationTest {
 
         assertTrue("Loaded property should be true", crowdPluginConfiguration.shouldCreateGroups)
         assertTrue("Loaded property should be true", crowdPluginConfiguration.doNotRemoveInternalGroups)
-        
+
         assertNotNull(crowdPluginConfiguration.clientProperties)
     }
 
