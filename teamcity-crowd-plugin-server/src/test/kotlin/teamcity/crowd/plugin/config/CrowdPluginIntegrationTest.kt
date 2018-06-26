@@ -30,6 +30,6 @@ class CrowdPluginIntegrationTest {
     @Test
     fun shouldReadValidConfiguration(){
         assertTrue(pluginConfiguration!!.shouldCreateGroups)
-        assertTrue(pluginConfiguration!!.doNotRemoveInternalGroups)
+        assertTrue(pluginConfiguration.doNotRemoveInternalGroups)
     }
 }
