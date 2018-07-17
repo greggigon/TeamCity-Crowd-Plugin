@@ -11,7 +11,6 @@ import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-import teamcity.crowd.plugin.config.FakeLogger
 import teamcity.crowd.plugin.utils.LoggerFactory
 
 class TeamCityPluginCrowdClientTest {

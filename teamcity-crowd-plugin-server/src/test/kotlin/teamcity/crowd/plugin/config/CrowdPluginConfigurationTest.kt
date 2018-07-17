@@ -9,6 +9,7 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import teamcity.crowd.plugin.FakeLogger
 import teamcity.crowd.plugin.utils.LoggerFactory
 
 class CrowdPluginConfigurationTest {
@@ -36,8 +37,3 @@ class CrowdPluginConfigurationTest {
 
 }
 
-class FakeLogger : LoggerFactory {
-    override fun getServerLogger(): Logger {
-        return Logger.getInstance("Test")
-    }
-}

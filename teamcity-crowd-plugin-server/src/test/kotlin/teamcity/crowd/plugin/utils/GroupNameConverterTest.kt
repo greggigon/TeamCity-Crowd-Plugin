@@ -6,7 +6,6 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
-import org.mockito.Mockito.anyString
 import org.mockito.Mockito.mock
 
 class GroupNameConverterTest {

@@ -8,20 +8,16 @@ import jetbrains.buildServer.users.UserModel
 import teamcity.crowd.plugin.config.CrowdPluginConfiguration
 import teamcity.crowd.plugin.utils.LoggerFactory
 import jetbrains.buildServer.users.SUser
+import teamcity.crowd.plugin.utils.GroupNameConverter
 
 
 class LoggedInUserService(
-        private val userGroupManager: UserGroupManager,
         private val pluginCrowdClient: PluginCrowdClient,
         private val userModel: UserModel,
-        loggerFactory: LoggerFactory, crowdPluginConfiguration: CrowdPluginConfiguration) {
+        private val groupsUpdater: GroupsUpdater,
+        loggerFactory: LoggerFactory) {
 
     private val logger: Logger = loggerFactory.getServerLogger()
-    private val doNotRemoveInternalGroups = crowdPluginConfiguration.doNotRemoveInternalGroups
-    private val shouldCreateGroups = crowdPluginConfiguration.shouldCreateGroups
-
-    private val ALL_USERS_GROUP = "All Users"
-    private val CREATED_BY_PLUGIN_MESSAGE = "Created by Crowd Plugin"
 
     fun updateMemebership(crowdUser: User): ServerPrincipal {
         val tcUser = findUserAccountFor(crowdUser)
@@ -30,7 +26,10 @@ class LoggedInUserService(
         } else {
             updateUserDetails(tcUser, crowdUser)
         }
-        return ServerPrincipal("", "")
+        val userGroupsInCrowd = userGroupsInCrowd(createdOrUpdatedUser)
+        groupsUpdater.updateGroups(createdOrUpdatedUser, userGroupsInCrowd)
+
+        return ServerPrincipal(CrowdPluginConfiguration.CROWD_REALM, crowdUser.name)
     }
 
 
@@ -53,26 +52,23 @@ class LoggedInUserService(
         return teamCityUser
     }
 
-    private fun groupsToBeRemovedFrom(teamCityGroups: List<String>, crowdGroups: List<String>): List<String> {
-        return teamCityGroups.filter {
-            !crowdGroups.contains(it) && ALL_USERS_GROUP.toLowerCase() != it.toLowerCase()
-        }
-    }
-
     private fun userGroupsInCrowd(teamCityUser: SUser): List<String> {
         return pluginCrowdClient.getUserGroups(teamCityUser.username).map { it.name }
     }
+}
 
-    private fun allTeamCityUserGroups(teamCityUser: SUser): List<String> {
-        return teamCityUser.userGroups.map { it.name }
-    }
+open class GroupsUpdater(private val userGroupManager: UserGroupManager,
+                    private val doNotRemoveInternalGroups: Boolean,
+                    private val shouldCreateGroups: Boolean,
+                    loggerFactory: LoggerFactory) {
 
-    private fun allTeamCityNonInternalUserGroups(teamCityUser: SUser): List<String> {
-        return teamCityUser.userGroups.filter { it.description == CREATED_BY_PLUGIN_MESSAGE }.map { it.name }
-    }
+    private val ALL_USERS_GROUP = "All Users"
+    private val CREATED_BY_PLUGIN_MESSAGE = "Created by Crowd Plugin"
+    private val groupNameConverter = GroupNameConverter(userGroupManager)
+    private val logger: Logger = loggerFactory.getServerLogger()
 
-    private fun updateUserGroups(teamCityUser: SUser) {
-        val userGroupsInCrowd = userGroupsInCrowd(teamCityUser)
+
+    fun updateGroups(teamCityUser: SUser, userGroupsInCrowd: Collection<String>) {
         val allTeamCityGroupsUserIsAMemberOfAlready = allTeamCityUserGroups(teamCityUser)
         val listOfGroupsUserShouldBeRemovedFrom = groupsToBeRemovedFrom(
                 if (doNotRemoveInternalGroups) allTeamCityNonInternalUserGroups(teamCityUser) else allTeamCityGroupsUserIsAMemberOfAlready,
@@ -82,12 +78,9 @@ class LoggedInUserService(
             if (!allTeamCityGroupsUserIsAMemberOfAlready.contains(userGroup)) {
                 var teamCityGroup = userGroupManager.findUserGroupByName(userGroup)
                 if (teamCityGroup == null && shouldCreateGroups) {
-                    val groupKey = ""//groupNameToGroupKey.transform(userGroup)
+                    val groupKey = groupNameConverter.convert(userGroup)
                     if (groupKey != null) {
-                        teamCityGroup = userGroupManager.createUserGroup(
-                                groupKey,
-                                userGroup,
-                                CREATED_BY_PLUGIN_MESSAGE)
+                        teamCityGroup = userGroupManager.createUserGroup(groupKey, userGroup, CREATED_BY_PLUGIN_MESSAGE)
                     }
                 }
                 if (teamCityGroup != null) {
@@ -96,6 +89,7 @@ class LoggedInUserService(
                 }
             }
         }
+
         for (groupName in listOfGroupsUserShouldBeRemovedFrom) {
             logger.info("Removing user [${teamCityUser.username}] from group [$groupName]")
             val teamCityGroup = userGroupManager.findUserGroupByName(groupName)
@@ -103,5 +97,19 @@ class LoggedInUserService(
         }
 
         teamCityUser.userGroups
+    }
+
+    private fun allTeamCityUserGroups(teamCityUser: SUser): List<String> {
+        return teamCityUser.userGroups.map { it.name }
+    }
+
+    private fun groupsToBeRemovedFrom(teamCityGroups: Collection<String>, crowdGroups: Collection<String>): List<String> {
+        return teamCityGroups.filter {
+            !crowdGroups.contains(it) && ALL_USERS_GROUP.toLowerCase() != it.toLowerCase()
+        }
+    }
+
+    private fun allTeamCityNonInternalUserGroups(teamCityUser: SUser): List<String> {
+        return teamCityUser.userGroups.filter { it.description == CREATED_BY_PLUGIN_MESSAGE }.map { it.name }
     }
 }

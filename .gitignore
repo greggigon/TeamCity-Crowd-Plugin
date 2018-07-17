@@ -19,3 +19,5 @@ teamcitydist/
 
 .idea
 .DS_Store
+
+servers/
