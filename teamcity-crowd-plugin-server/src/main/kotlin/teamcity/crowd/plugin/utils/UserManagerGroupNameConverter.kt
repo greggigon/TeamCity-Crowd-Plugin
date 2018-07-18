@@ -2,10 +2,13 @@ package teamcity.crowd.plugin.utils
 
 import jetbrains.buildServer.groups.UserGroupManager
 
+interface GroupNameConverter {
+    fun convert(groupName: String): String?
+}
 
-class GroupNameConverter(private val userGroupManager: UserGroupManager) {
+class UserManagerGroupNameConverter(private val userGroupManager: UserGroupManager) : GroupNameConverter {
 
-    fun convert(groupName: String): String? {
+    override fun convert(groupName: String): String? {
         var sanitizedGroupName = groupName.toUpperCase().replace(" ", "_").replace("-", "_")
         if (sanitizedGroupName.length < 16) {
             return sanitizedGroupName

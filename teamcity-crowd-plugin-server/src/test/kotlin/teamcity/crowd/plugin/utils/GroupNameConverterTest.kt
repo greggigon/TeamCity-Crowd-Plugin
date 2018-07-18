@@ -10,7 +10,7 @@ import org.mockito.Mockito.mock
 
 class GroupNameConverterTest {
     private val userGroupManager: UserGroupManager = mock(UserGroupManager::class.java)
-    private val converter = GroupNameConverter(userGroupManager)
+    private val converter = UserManagerGroupNameConverter(userGroupManager)
 
     @Test
     fun shouldTrimKeyToBe16Characters() {

@@ -1,7 +1,6 @@
 package teamcity.crowd.plugin
 
 import com.atlassian.crowd.model.user.User
-import jetbrains.buildServer.groups.UserGroup
 import jetbrains.buildServer.groups.UserGroupManager
 import jetbrains.buildServer.users.SUser
 import jetbrains.buildServer.users.UserModel
@@ -40,7 +39,7 @@ class LoggedInUserServiceTest {
         `when`(userModel.createUserAccount(CrowdPluginConfiguration.CROWD_REALM, crowdUser.name)).thenReturn(teamCityAccount)
 
         // When
-        userService.updateMemebership(crowdUser)
+        userService.updateMembership(crowdUser)
 
         // Then
         verify(userModel).createUserAccount(CrowdPluginConfiguration.CROWD_REALM, crowdUser.name)
@@ -54,7 +53,7 @@ class LoggedInUserServiceTest {
         `when`(userModel.findUserAccount(CrowdPluginConfiguration.CROWD_REALM, crowdUser.name)).thenReturn(teamCityAccount)
 
         // When
-        userService.updateMemebership(crowdUser)
+        userService.updateMembership(crowdUser)
 
         // Then
         verify(userModel, never()).createUserAccount(anyString(), anyString())
