@@ -7,6 +7,7 @@ Link to the website to follow soon.
 Recent changes
 --------------
 
+Build status [![CircleCI](https://circleci.com/gh/greggigon/TeamCity-Crowd-Plugin/tree/master.svg?style=svg)](https://circleci.com/gh/greggigon/TeamCity-Crowd-Plugin/tree/master)
 
 * Refactored out Java and Groovy into Kotlin.
 * Latest versions of TeamCity (2018.1) and Crowd (3.2.1) used
