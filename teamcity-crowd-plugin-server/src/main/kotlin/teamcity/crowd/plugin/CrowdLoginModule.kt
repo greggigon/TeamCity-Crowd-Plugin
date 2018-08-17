@@ -1,14 +1,14 @@
 package teamcity.crowd.plugin
 
 import com.intellij.openapi.diagnostic.Logger
-import javax.security.auth.spi.LoginModule
-import javax.security.auth.login.LoginException
-import teamcity.crowd.plugin.utils.LoggerFactory
-import javax.security.auth.callback.PasswordCallback
-import javax.security.auth.callback.NameCallback
-import javax.security.auth.callback.CallbackHandler
 import javax.security.auth.Subject
 import javax.security.auth.callback.Callback
+import javax.security.auth.callback.CallbackHandler
+import javax.security.auth.callback.NameCallback
+import javax.security.auth.callback.PasswordCallback
+import javax.security.auth.login.FailedLoginException
+import javax.security.auth.login.LoginException
+import javax.security.auth.spi.LoginModule
 
 
 class CrowdLoginModule : LoginModule {
@@ -27,9 +27,10 @@ class CrowdLoginModule : LoginModule {
         myPasswordCallback = PasswordCallback("password:", false)
         myCallbacks = arrayOf(myNameCallback, myPasswordCallback)
         mySubject = subject!!
-        pluginCrowdClient = options!![PluginCrowdClient::javaClass.name] as PluginCrowdClient
-        loggedInUserService = options[LoggedInUserService::javaClass.name] as LoggedInUserService
-        logger = (options[LoggerFactory::javaClass.name] as LoggerFactory).getServerLogger()
+
+        pluginCrowdClient = options!![ModuleDescriptorConstants.CROWD_CLIENT_OPTION] as PluginCrowdClient
+        loggedInUserService = options[ModuleDescriptorConstants.LOGGED_IN_USER_SERVICE_OPTION] as LoggedInUserService
+        logger = options[ModuleDescriptorConstants.LOGGER_OPTION] as Logger
     }
 
     override fun login(): Boolean {
@@ -45,14 +46,10 @@ class CrowdLoginModule : LoginModule {
 
         val user = pluginCrowdClient.loginUserWithPassword(username, password)
         if (user != null) {
-            // mySubject.principals.add(loggedInUserService)
+            mySubject.principals.add(loggedInUserService.updateMembership(user))
+            return true
         }
-//        if (possiblyLoggedInUser.isPresent()) {
-//            mySubject.getPrincipals().add(loggedInUserService.updateMembership(possiblyLoggedInUser.get()));
-//            return true;
-//        }
-//        throw new FailedLoginException ("Invalid username or password");
-        return false
+        throw FailedLoginException("Invalid username or password")
     }
 
     override fun commit(): Boolean {

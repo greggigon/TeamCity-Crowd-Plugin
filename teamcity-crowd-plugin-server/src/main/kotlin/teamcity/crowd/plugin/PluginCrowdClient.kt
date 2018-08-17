@@ -8,6 +8,8 @@ import com.intellij.openapi.diagnostic.Logger
 import teamcity.crowd.plugin.utils.LoggerFactory
 import com.atlassian.crowd.exception.ApplicationPermissionException
 import com.atlassian.crowd.exception.InvalidAuthenticationException
+import com.atlassian.crowd.service.client.ClientProperties
+import com.atlassian.crowd.service.factory.CrowdClientFactory
 
 interface PluginCrowdClient {
     fun loginUserWithPassword(username: String, password: String): User?
@@ -20,6 +22,13 @@ interface PluginCrowdClient {
         const val OPERATION_FAILED_MESSAGE = "Bummer. Something went wrong. Can't talk to Crowd at all."
         const val UNKNOWN_ERROR_MESSAGE = "Bummer. Failed with unknown reasons!"
     }
+}
+
+class TeamCityPluginCrowdClientFactory(
+        private val crowdClientFactory: CrowdClientFactory,
+        private val clientProperties: ClientProperties){
+
+    fun newInstance(): CrowdClient = crowdClientFactory.newInstance(clientProperties)
 }
 
 

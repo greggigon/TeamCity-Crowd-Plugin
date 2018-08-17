@@ -36,7 +36,7 @@ class LoggedInUserService(
     }
 
     private fun createUserAccount(user: User): SUser {
-        logger.info("User [${user.name} doesn't exists in TeamCity. Creating!")
+        logger.info("User [${user.name}] doesn't exists in TeamCity. Creating!")
         val userAccount = userModel.createUserAccount(CrowdPluginConfiguration.CROWD_REALM, user.name)
         userAccount.updateUserAccount(user.name, user.displayName, user.emailAddress)
         return userAccount
@@ -54,4 +54,3 @@ class LoggedInUserService(
         return pluginCrowdClient.getUserGroups(teamCityUser.username).map { it.name }
     }
 }
-

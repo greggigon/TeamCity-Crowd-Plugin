@@ -22,6 +22,7 @@ class CrowdPluginConfiguration(configDirectory: String, configFileName: String, 
                 "Make sure configuration file teamcity-crowd-plugin.properties is in the TeamCity Data Folder/config"
 
         const val CROWD_REALM = "crowd"
+        const val CROWD_NAME = "Crowd"
     }
 
     init {
@@ -42,6 +43,4 @@ class CrowdPluginConfiguration(configDirectory: String, configFileName: String, 
         shouldCreateGroups = pluginProperties.getProperty(SHOULD_CREATE_GROUPS, "false")!!.toBoolean()
         doNotRemoveInternalGroups = pluginProperties.getProperty(DO_NOT_REMOVE_INTERNAL_GROUPS, "false")!!.toBoolean()
     }
-
-
 }
