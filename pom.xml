@@ -10,8 +10,8 @@
 
     <properties>
         <teamcity-version>2018.1</teamcity-version>
-        <kotlin.version>1.2.41</kotlin.version>
         <crowd.client.version>3.2.1</crowd.client.version>
+        <kotlin.version>1.2.41</kotlin.version>
     </properties>
 
     <repositories>

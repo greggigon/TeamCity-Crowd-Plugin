@@ -1,60 +1,51 @@
 TeamCity Crowd Plugin
 =================================
 
-Latest version of plugin is [0.3.0](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/0.3.0) and available on [BinTray](https://bintray.com/greggigon/generic/TeamCity-Crowd-Plugin/).
-Build for TeamCity 9.0.2 and Crowd 2.6.7 .
-
-        PLEASE NOTE IT IS RECOMMENDED TO BUILD THE PLUGIN FOR A SPECIFIC VERSION OF TEAMCITY AND CROWD.
-        
-Plugin should be compatible within a major releases, however I can't guarantee this as I can't test all different combinations.
+Binary versions of Plugin for a specific version of Crowd and TeamCity are fully available as a supported, Enterprise version. 
+Link to the website to follow soon. 
 
 Introduction
 -------------
 
 [TeamCity](http://www.jetbrains.com/teamcity/) Crowd integration plugin is used by TeamCity for user authentication.
 
-[Plugin listed on Jetbrains page](http://confluence.jetbrains.com/display/TW/TeamCity+Plugins).
+[Plugin listed on Jetbrains page](https://plugins.jetbrains.com/plugin/9086-crowd-authentication).
 
-The plugin replaces standard TeamCity Authentication mechanism by talking to [Atlassian Crowd](https://www.atlassian.com/software/crowd/overview).
+The plugin replaces standard TeamCity Authentication mechanism by connecting to [Atlassian Crowd](https://www.atlassian.com/software/crowd/overview).
 When user logs in with username and password, plugin validates credentials with Crowd. If the user "checks out" fine, the plugin creates user in TeamCity if the user doesn't exists.
 
 Once the user is created Plugin will update user's group membership.
 There are two modes in which Plugin can work (configured via plugin configuration file):
-  - Plugin will only update membership of a user with groups that already exists in TeamCity. Previously created. This means that user will only be added to groups that already exist in TeamCity (default functionality)
-  - Plugin will create missing groups and update user membership (set via configuration file, not default)
+  - Plugin will only update membership of a user with groups that already exists in TeamCity (groups previously created in TeamCity). This means that user will only be added to groups that already exist in TeamCity (default functionality)
+  - Plugin will create missing groups and update user membership (this functionality can be switched on via configuration file)
 
 ##### Note
-Plugin uses different REALM to TeamCity. Once plugin activated the entire user base and groups prior to installation will be __NOT__ accessible.
+Plugin uses different REALM to TeamCity. Once plugin activated the entire user base and groups prior to installation will __NOT__ be accessible.
 
 Building the plugin
 -------------------
 
 To build the plugin you need Java installed on your machine and access to the Internet.
-Plugin uses Gradle to build the project.
+Plugin uses Maven 3 to build the project.
 
-    gradlew buildPlugin
+    $ mvn clean package
 
-The build will run tests and prepare zip file in the __build/dist__ project folder.
+The build will run tests and prepare zip file in the __target/__ project folder.
 
-You can modify a specific versions of TeamCity and Crowd you are building for, in the __build.gradle__ file (see __teamCityVersion__ and __crowdVersion__ in the __ext__ section).
+You can modify a specific versions of TeamCity and Crowd you are building for, in the __pom.xml__ file (see __teamcity-version__ and __crowd.client.version__).
 
 ##### Note
 First time the plugin is build it will download a distribution of TeamCity, it might take a while (~500MB).
 
-If you have a distribution of TeamCity deployed somewhere you might copy it to project directory __teamcitydist/__ folder or modify __build.gradle__ file.
-
-You can also change the versions of TeamCity distribution and Crowd libraries in the __build.gradle__ file.
-
-
 ### Versions
 
-The plugin was tested with `Teamcity 9.0.2` and `Atlassian Crowd 2.6.1, 2.6.3 and 2.6.7`. Build with `JDK 8 on Mac, Windows and Linux`.
+The plugin was extensively tested with `Teamcity 2018.1` and `Atlassian Crowd 3.2.1`. 
 
 Installation
 ------------
 
-To install TeamCity Crowd plugin you need to copy the plugin distribution file (build/dist/teamcity-crowd-plugin-(version).zip) into __TeamCityDataDir/plugins__ folder.
-__TeamCityDataDir__ is the server data folder. By default it is in the __User Home/.Buildserver__. More info at [JetBrains TeamCity WIKI](http://confluence.jetbrains.com/display/TCD8/TeamCity+Data+Directory).
+To install TeamCity Crowd plugin you need to copy the plugin distribution file (build/dist/teamcity-crowd-plugin.zip) into __TeamCityDataDir/plugins__ folder.
+__TeamCityDataDir__ is the server data folder. By default it is in the __User Home/.Buildserver__. More info at [JetBrains TeamCity WIKI](https://confluence.jetbrains.com/display/TCD18/TeamCity+Data+Directory).
 
 You can also copy presets file __crowd.xml__ from [this repository](https://raw2.github.com/greggigon/TeamCity-Crowd-Plugin/master/crowd.xml) and place it in the __TeamCityDataDir/config/_auth__ folder.
 It is Authentication preset file that will make Crowd Authentication selectable from the Administrator view in TeamCity.
