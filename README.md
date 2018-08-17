@@ -1,8 +1,16 @@
 TeamCity Crowd Plugin
 =================================
-
 Binary versions of Plugin for a specific version of Crowd and TeamCity are fully available as a supported, Enterprise version. 
+
 Link to the website to follow soon. 
+
+Recent changes
+--------------
+
+
+* Refactored out Java and Groovy into Kotlin.
+* Latest versions of TeamCity (2018.1) and Crowd (3.2.1) used
+
 
 Introduction
 -------------
