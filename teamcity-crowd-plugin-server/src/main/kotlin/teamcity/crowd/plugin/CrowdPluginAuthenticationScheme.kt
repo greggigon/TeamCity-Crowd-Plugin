@@ -32,6 +32,14 @@ class CrowdPluginAuthenticationScheme(
         return HttpAuthenticationResult.unauthenticated()
     }
 
+    override fun getDisplayName(): String {
+        return "Crowd backed Basic HTTP"
+    }
+
+    override fun getDescription(): String {
+        return "Allows basic HTTP authentication via Crowd users and groups"
+    }
+
     private fun extractAuthorization(authorizationString: String?): Pair<String, String>? {
         if (authorizationString == null) return null
         val split = authorizationString.split(" ")

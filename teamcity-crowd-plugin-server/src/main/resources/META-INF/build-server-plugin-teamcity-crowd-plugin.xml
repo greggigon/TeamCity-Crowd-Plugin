@@ -54,11 +54,7 @@
 
     <bean id="loggedInUserService" class="teamcity.crowd.plugin.LoggedInUserService" />
 
-
-    <!--<bean id="crowdAuthenticationScheme" class="teamcity.crowd.plugin.CrowdPluginAuthenticationScheme">-->
-        <!--<constructor-arg ref="pluginCrowdClient" />-->
-        <!--<constructor-arg ref="loggedInUserService" />-->
-    <!--</bean>-->
+    <bean id="crowdAuthenticationScheme" class="teamcity.crowd.plugin.CrowdPluginAuthenticationScheme" />
 
     <bean id="crowdLoginModuleDescriptor" class="teamcity.crowd.plugin.CrowdPluginLoginModuleDescriptor" />
 </beans>
