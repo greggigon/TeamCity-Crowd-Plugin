@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+       default-autowire="constructor">
+
+    <import resource="classpath:applicationContext-CrowdRestClient.xml"/>
+
+    <bean id="loggerFactory" class="teamcity.crowd.plugin.utils.TeamCityLoggerFactory"/>
+
+    <bean id="configDir" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="serverPaths"/>
+        <property name="targetMethod" value="getConfigDir"/>
+    </bean>
+
+    <bean id="pluginConfiguration" class="teamcity.crowd.plugin.config.CrowdPluginConfiguration" depends-on="configDir">
+        <constructor-arg ref="configDir"/>
+        <constructor-arg value="teamcity-crowd-plugin.properties" type="java.lang.String"/>
+        <constructor-arg ref="loggerFactory"/>
+        <constructor-arg ref="clientProperties"/>
+    </bean>
+
+    <bean id="crowdClientProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="pluginConfiguration"/>
+        <property name="targetMethod" value="getClientProperties"/>
+    </bean>
+
+    <bean id="shouldCreateGroups" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="pluginConfiguration"/>
+        <property name="targetMethod" value="getShouldCreateGroups"/>
+    </bean>
+
+    <bean id="doNotRemoveInternalGroups" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="pluginConfiguration"/>
+        <property name="targetMethod" value="getDoNotRemoveInternalGroups"/>
+    </bean>
+
+    <bean id="pluginCrowdClientFactory" class="teamcity.crowd.plugin.TeamCityPluginCrowdClientFactory">
+        <constructor-arg ref="crowdClientFactory"/>
+        <constructor-arg ref="crowdClientProperties"/>
+    </bean>
+
+    <bean id="crowdClient" factory-method="newInstance" factory-bean="pluginCrowdClientFactory" />
+
+    <bean id="pluginCrowdClient" class="teamcity.crowd.plugin.TeamCityPluginCrowdClient">
+        <constructor-arg ref="crowdClient"/>
+        <constructor-arg ref="loggerFactory"/>
+    </bean>
+
+    <bean id="groupNameConverter" class="teamcity.crowd.plugin.utils.UserManagerGroupNameConverter" />
+
+    <bean id="groupsUpdater" class="teamcity.crowd.plugin.GroupsUpdater" />
+
+    <bean id="loggedInUserService" class="teamcity.crowd.plugin.LoggedInUserService" />
+
+    <bean id="crowdAuthenticationScheme" class="teamcity.crowd.plugin.CrowdPluginAuthenticationScheme" />
+
+    <bean id="crowdLoginModuleDescriptor" class="teamcity.crowd.plugin.CrowdPluginLoginModuleDescriptor" />
+</beans>

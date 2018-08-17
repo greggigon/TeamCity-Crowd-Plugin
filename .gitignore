@@ -2,17 +2,15 @@
 
 # Package Files #
 *.jar
-*.war
 *.ear
 
-classes/
-.gradle/
-build/
 out/
 *.iml
 *.ipr
 *.iws
-teamcitydist/
-*.tar.gz
 
 .idea
+.DS_Store
+
+servers/
+target/
