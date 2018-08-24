@@ -4,13 +4,12 @@
     <info>
         <name>TeamCityCrowdPlugin</name>
         <display-name>TeamCity Crowd Plugin</display-name>
-        <version>@version@</version>
-        <download-url>Plugin download URL</download-url>
-        <email>Plugin author e-mail</email>
+        <version>@Version@</version>
+        <download-url>@VendorURL@</download-url>
+        <email></email>
         <vendor>
             <name>@VendorName@</name>
             <url>@VendorURL@</url>
-            <logo>Plugin vendor logo URL</logo>
         </vendor>
     </info>
     <deployment use-separate-classloader="false"/>
