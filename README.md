@@ -1,8 +1,7 @@
 TeamCity Crowd Plugin
 =================================
-Binary versions of Plugin for a specific version of Crowd and TeamCity are fully available as a supported, Enterprise version. 
 
-Link to the website to follow soon. 
+    If you are interested in purchasing Support or Binary versions of Plugin for a Specific Version of TeamCity and Crowd, please get in touch via email teamcity.crowd.plugin@gmail.com 
 
 Recent changes
 --------------

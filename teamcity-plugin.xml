@@ -10,6 +10,7 @@
         <vendor>
             <name>@VendorName@</name>
             <url>@VendorURL@</url>
+            <email>@VendorEmail@</email>
         </vendor>
     </info>
     <deployment use-separate-classloader="false"/>

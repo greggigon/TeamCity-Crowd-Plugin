@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <teamcity-version>2018.1</teamcity-version>
+        <teamcity-version>2018.1.1</teamcity-version>
         <crowd.client.version>3.2.1</crowd.client.version>
         <kotlin.version>1.2.41</kotlin.version>
     </properties>

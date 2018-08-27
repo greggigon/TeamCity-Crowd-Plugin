@@ -12,6 +12,7 @@
       <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
       <teamcity.teamcity-crowd-plugin.plugin.version>t${teamcity-version}-c${crowd.client.version}-${version}</teamcity.teamcity-crowd-plugin.plugin.version>
       <teamcity.teamcity-crowd-plugin.plugin.vendorName>Greg Gigon</teamcity.teamcity-crowd-plugin.plugin.vendorName>
+      <teamcity.teamcity-crowd-plugin.plugin.email>teamcity.crowd.plugin@gmail.com</teamcity.teamcity-crowd-plugin.plugin.email>
       <teamcity.teamcity-crowd-plugin.plugin.vendorUrl>https://github.com/greggigon/TeamCity-Crowd-Plugin</teamcity.teamcity-crowd-plugin.plugin.vendorUrl>
   </properties>
   <dependencies>
@@ -50,6 +51,10 @@
                     <replacement>
                         <token>@VendorURL@</token>
                         <value>${teamcity.teamcity-crowd-plugin.plugin.vendorUrl}</value>
+                    </replacement>
+                    <replacement>
+                        <token>@VendorEmail@</token>
+                        <value>${teamcity.teamcity-crowd-plugin.plugin.email}</value>
                     </replacement>
                 </replacements>                        
             </configuration>
