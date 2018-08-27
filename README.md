@@ -1,7 +1,7 @@
 TeamCity Crowd Plugin
 =================================
 
-    If you are interested in purchasing Support or Binary versions of Plugin for a Specific Version of TeamCity and Crowd, please get in touch via email teamcity.crowd.plugin@gmail.com 
+*If you are interested in purchasing Support or Binary versions of Plugin for a Specific Version of TeamCity and Crowd, please get in touch via email [teamcity.crowd.plugin@gmail.com](mailto:teamcity.crowd.plugin@gmail.com)*
 
 Recent changes
 --------------
