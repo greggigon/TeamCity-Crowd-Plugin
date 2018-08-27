@@ -1,15 +1,16 @@
 TeamCity Crowd Plugin
 =================================
 
-*If you are interested in purchasing Support or Binary versions of Plugin for a Specific Version of TeamCity and Crowd, please get in touch via email [teamcity.crowd.plugin@gmail.com](mailto:teamcity.crowd.plugin@gmail.com)*
+__*If you are interested in purchasing Support or Binary versions of Plugin for a Specific Version of TeamCity and Crowd, please get in touch via email [teamcity.crowd.plugin@gmail.com](mailto:teamcity.crowd.plugin@gmail.com)*__
 
 Recent changes
 --------------
 
 Build status [![CircleCI](https://circleci.com/gh/greggigon/TeamCity-Crowd-Plugin/tree/master.svg?style=svg)](https://circleci.com/gh/greggigon/TeamCity-Crowd-Plugin/tree/master)
 
-* Refactored out Java and Groovy into Kotlin.
-* Latest versions of TeamCity (2018.1) and Crowd (3.2.1) used
+* Refactored out Java and Groovy into Kotlin
+* Latest versions of TeamCity (2018.1.1) and Crowd (3.2.1)
+* Increased Unit test coverage
 
 
 Introduction
