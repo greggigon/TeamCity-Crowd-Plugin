@@ -37,7 +37,7 @@ class CrowdPluginConfiguration(configDirectory: String, configFileName: String, 
         }
 
         val pluginProperties = Properties()
-        val reader = IOGuardWrapper.allowNetworkCall<FileReader,Exception>( FuncThrow { FileReader(configurationFile) } )
+        val reader = FileReader(configurationFile)
         pluginProperties.load(reader)
 
         clientProperties.updateProperties(pluginProperties)
