@@ -13,6 +13,6 @@
             <email>@VendorEmail@</email>
         </vendor>
     </info>
-    <deployment use-separate-classloader="false"/>
+    <deployment use-separate-classloader="true" node-responsibilities-aware="true"/>
 </teamcity-plugin>
 
