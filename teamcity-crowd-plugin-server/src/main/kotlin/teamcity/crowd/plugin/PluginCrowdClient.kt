@@ -10,6 +10,7 @@ import com.atlassian.crowd.exception.ApplicationPermissionException
 import com.atlassian.crowd.exception.InvalidAuthenticationException
 import com.atlassian.crowd.service.client.ClientProperties
 import com.atlassian.crowd.service.factory.CrowdClientFactory
+import jetbrains.buildServer.util.FuncThrow
 
 interface PluginCrowdClient {
     fun loginUserWithPassword(username: String, password: String): User?
@@ -37,7 +38,7 @@ class TeamCityPluginCrowdClient(private val crowdClient: CrowdClient, loggerFact
 
     override fun loginUserWithPassword(username: String, password: String): User? {
         try {
-            return crowdClient.authenticateUser(username, password)
+            return IOGuardWrapper.allowNetworkCall<User?, Exception>( FuncThrow { crowdClient.authenticateUser(username, password) } )
         } catch (e: UserNotFoundException) {
             logger.warn("User with name [$username] doesn't exists.", e)
         } catch (e: InactiveAccountException) {
@@ -58,7 +59,7 @@ class TeamCityPluginCrowdClient(private val crowdClient: CrowdClient, loggerFact
 
     override fun getUserGroups(username: String): Collection<Group> {
         try {
-            return crowdClient.getGroupsForUser(username, 0, Integer.MAX_VALUE)
+            return IOGuardWrapper.allowNetworkCall<Collection<Group>, Exception>( FuncThrow { crowdClient.getGroupsForUser(username, 0, Integer.MAX_VALUE) } )
         } catch (e: UserNotFoundException) {
             logger.warn("User with name [$username] doesn't exists.", e)
         } catch (e: OperationFailedException) {
@@ -72,5 +73,4 @@ class TeamCityPluginCrowdClient(private val crowdClient: CrowdClient, loggerFact
         }
         return emptyList()
     }
-
 }
